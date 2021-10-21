@@ -1,12 +1,18 @@
 import React, {useState, useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 import axios from 'axios'
 import Header from './Header'
+
+
+
 
 const BeerDetails = (props) => {
 const [beer, setBeer] = useState(null)
 
+const {id} = useParams() // === const id = props.match.params.id
+
 useEffect(() => {
-    const id = props.match.params.id
+    // const id = props.match.params.id
     axios.get("https://ih-beers-api2.herokuapp.com/beers/" + id)
     .then(result=>{
         console.log(result.data);
@@ -14,7 +20,8 @@ useEffect(() => {
     })
     .catch(err=>console.log(err))
   
-}, [props.match.params.id])
+}, [id]) //
+
 
     return (
         <div>
