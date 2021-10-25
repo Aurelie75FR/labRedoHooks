@@ -47,24 +47,33 @@ const Contact = () => {
       <button onClick={addRandom}> Add random contact</button>
       <button onClick={sortName}>Sort by name</button>
       <button onClick={sortPopularity}>Sort by popularity</button>
-      {data.map((el, index) => {
-        return (
-          <tbody key={index.id}>
-            <tr>
-              <td>
-                <img
-                  src={el.pictureUrl}
-                  alt={el.name}
-                  style={{ width: "100px" }}
-                />
-              </td>
-              <td>{el.name}</td>
-              <td>{el.popularity.toFixed(2)}</td>
-              <button onClick={() => deleteContact(index)}>Delete</button>
-            </tr>
-          </tbody>
-        );
-      })}
+      <table className="display">
+        <thead>
+          <tr>
+            <td>Picture</td>
+            <td>Name</td>
+            <td>Popularity</td>
+          </tr>
+        </thead>
+        {data.map((el, index) => {
+          return (
+            <tbody key={index.id}>
+              <tr>
+                <td>
+                  <img
+                    src={el.pictureUrl}
+                    alt={el.name}
+                    style={{ width: "100px" }}
+                  />
+                </td>
+                <td>{el.name}</td>
+                <td>{el.popularity.toFixed(2)}</td>
+                <button onClick={() => deleteContact(index)}>Delete</button>
+              </tr>
+            </tbody>
+          );
+        })}
+      </table>
     </>
   );
 };
