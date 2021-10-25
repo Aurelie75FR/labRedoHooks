@@ -1,58 +1,68 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { withRouter, Redirect } from 'react-router-dom';
+import Header from './Header';
 
-const NewBeer = () => {
-    
-//     const [beerList, setBeerList] = useState('https://ih-beer-api.herokuapp.com/beers')
-//     const addNewBeerHandler = (bName, bTag, bContributor) =>{
-//         setBeerList((prevBeerList) => {
-//            return [...prevBeerList, {bName: enteredName, bTag: enteredTagline, bContributor: enteredContributor, id: '1'}]
-//         })
-//     }
-//   const name = useRef();
-//   const contributor = useRef();
-//   const tagline = useRef();
-//   const addBeerHandler = (e) => {
-//     e.preventDefault();
-//     const enteredName = name.current.value;
-//     const enteredTagline = tagline.current.value;
-//     const enteredContributor = contributor.current.value;
-//   };
+const NewBeer = (props) => {
+  const name = useRef();
+  const contributor = useRef();
+  const tagline = useRef();
 
-const form = useRef()
+  const addBeerHandler = (e) => {
+    e.preventDefault();
+    const enteredName = name.current.value;
+    const enteredTagline = tagline.current.value;
+    const enteredContributor = contributor.current.value;
+    props.onAddBeer(enteredName, enteredTagline, enteredContributor);
+    const newBeer = {
+      name: enteredName,
+      tagline: enteredTagline,
+      contributed_by: enteredContributor,
+    };
+    console.log(newBeer);
+    axios
+      .post('https://ih-beers-api2.herokuapp.com/beers/new/', newBeer)
+      .then(() => console.log('submit'))
+      .catch((err) => console.log(err));
+    e.target.reset();
+  };
 
+  // const form = useRef()
 
+  // const handleSubmit = e => {
+  //     e.preventDefault()
 
-const handleSubmit = e => {
-    e.preventDefault()
+  //     axios.post('https://ih-beers-api2.herokuapp.com/beers/new/', newBeer)
+  //     .then(()=>console.log('submit'))
+  //     .catch(err=>console.log(err))
+  //     e.target.reset()
+  // }
 
-    axios.post('https://ih-beers-api2.herokuapp.com/beers/new/', newBeer)
-    .then(()=>console.log('submit'))
-    .catch(err=>console.log(err))
-    e.target.reset()
-}
-
-
-
-  return <div>
-
-      <form onSubmit={handleSubmit} ref={form}>
-<div>
-    <label htmlFor="name">Name</label>
-    <input type="text" name='name' id="name" />
-</div>
-<div>
-    <label htmlFor="tagline">Tagline</label>
-    <input type="text" name='tagline' id="tagline" />
-</div>
-<div>
-    <label htmlFor="Contributor">Contributor</label>
-    <input type="text" name='Contributor' id="Contributor" />
-</div>
-<button>Submit</button>
+  return (
+    <div>
+      <Header />
+      <form onSubmit={addBeerHandler}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" id="name" ref={name} />
+        </div>
+        <div>
+          <label htmlFor="tagline">Tagline</label>
+          <input type="text" name="tagline" id="tagline" ref={tagline} />
+        </div>
+        <div>
+          <label htmlFor="Contributor">Contributor</label>
+          <input
+            type="text"
+            name="Contributor"
+            id="Contributor"
+            ref={contributor}
+          />
+        </div>
+        <button>Submit</button>
       </form>
-  </div>;
+    </div>
+  );
 };
 
 export default NewBeer;
