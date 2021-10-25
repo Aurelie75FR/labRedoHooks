@@ -4,6 +4,8 @@ import { withRouter, Redirect } from 'react-router-dom';
 import Header from './Header';
 
 const NewBeer = (props) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const name = useRef();
   const contributor = useRef();
   const tagline = useRef();
@@ -22,25 +24,18 @@ const NewBeer = (props) => {
     console.log(newBeer);
     axios
       .post('https://ih-beers-api2.herokuapp.com/beers/new/', newBeer)
-      .then(() => console.log('submit'))
+      .then(() => {
+        console.log('submit');
+        setIsSubmitted(true);
+      })
       .catch((err) => console.log(err));
     e.target.reset();
   };
 
-  // const form = useRef()
-
-  // const handleSubmit = e => {
-  //     e.preventDefault()
-
-  //     axios.post('https://ih-beers-api2.herokuapp.com/beers/new/', newBeer)
-  //     .then(()=>console.log('submit'))
-  //     .catch(err=>console.log(err))
-  //     e.target.reset()
-  // }
-
   return (
     <div>
       <Header />
+      {isSubmitted ? <Redirect to="/all" /> : null}
       <form onSubmit={addBeerHandler}>
         <div>
           <label htmlFor="name">Name</label>
@@ -65,4 +60,4 @@ const NewBeer = (props) => {
   );
 };
 
-export default NewBeer;
+export default withRouter(NewBeer);
