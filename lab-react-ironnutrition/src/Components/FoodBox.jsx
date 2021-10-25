@@ -4,47 +4,53 @@ const FoodBox = (props) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleChange = (e) => {
-    const { value } = e.target;
-
-    setQuantity(Number(value));
+    setQuantity(e.target.value);
   };
 
-  const { name, calories, image } = props.food;
+  //probleme pour passer la quantité ligne 14
+  const handleClick = () => {
+    const selectedFood = {
+      ...props.food,
+      quantity: setQuantity(Number),
+    };
+    props.handleSelect(selectedFood);
+  };
 
   return (
     <div className="box">
-      <article className="media">
-        <div className="media-left">
-          <figure className="image is-64x64">
-            <img src="https://i.imgur.com/eTmWoAN.png" />
-          </figure>
+    <article className="media">
+      <div className="media-left">
+        <figure className="image is-64x64">
+          <img src={props.food.image} alt="food" style={{width: "100px"}} />
+        </figure>
+      </div>
+      <div className="media-content">
+        <div className="content">
+          <p>
+            <strong>{props.food.name}</strong> <br />
+            <small>{props.food.calories} cal</small>
+          </p>
         </div>
-        <div className="media-content">
-          <div className="content">
-            <p>
-              <strong>Pizza</strong> <br />
-              <small>400 cal</small>
-            </p>
+      </div>
+      <div className="media-right">
+        <div className="field has-addons">
+          <div className="control">
+            <input
+              type="number"
+              className="input"
+              value={quantity}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="control">
+            <button onClick={handleClick} className="button is-info">
+              +
+            </button>
           </div>
         </div>
-        <div className="media-right">
-          <div className="field has-addons">
-            <div className="control">
-              <input onChange={handleChange} className="input" type="number" value="1" />
-            </div>
-            <div className="control">
-              <button
-              onClick={() => props.addFood({
-                  ...food,
-                  quantity
-              })
-              }
-              className="button is-info">+</button>
-            </div>
-          </div>
-        </div>
-      </article>
-    </div>
+      </div>
+    </article>
+  </div>
   );
 };
 
