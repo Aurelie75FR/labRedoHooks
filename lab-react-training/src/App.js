@@ -10,6 +10,8 @@ import LikeButton from './Components/LikeButton';
 import ClickablePicture from './Components/ClickablePicture';
 import Dice from './Components/Dice';
 import Carousel from './Components/Carousel';
+import NumbersTable from './Components/NumberTable';
+import Facebook from './Components/Facebook';
 
 
 function App() {
@@ -116,6 +118,11 @@ function App() {
   ]}
 />
 <hr/>
+<NumbersTable limit={12} />
+<hr/>
+<Facebook />
+<hr/>
+
     </div>
   );
 }

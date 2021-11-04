@@ -16,6 +16,8 @@ const CreditCard = ({
   };
 
   const hashedcardnumber = (num) => {
+    //Explication RegEx  => https://buzut.net/la-puissance-des-regex/
+    // ^ = exclure  \d = chiffre  \s = espace  ? = 0 ou 1 fois  
     return num.replace(/^[\d-\s]+(?=\d{4})/, '•••• •••• •••• ');
     // num.replace(/[^0-9](?=([0-9{4}]))/g, '•');
     // num.replace(/\d{4}(?= \d{4})/g, '••••');
