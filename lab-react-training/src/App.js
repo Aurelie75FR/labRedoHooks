@@ -12,7 +12,8 @@ import Dice from './Components/Dice';
 import Carousel from './Components/Carousel';
 import NumbersTable from './Components/NumberTable';
 import Facebook from './Components/Facebook';
-
+// import SingleColorPicker from './Components/SingleColorPicker';
+import RGBColorPicker from './Components/RGBColorPicker';
 
 function App() {
   return (
@@ -122,7 +123,8 @@ function App() {
 <hr/>
 <Facebook />
 <hr/>
-
+{/* <SingleColorPicker color='r' callback={callback} value={value} /> */}
+  <RGBColorPicker/>
     </div>
   );
 }
